@@ -1,0 +1,52 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://47.105.218.58:8761/eureka/,http://47.105.218.58:8762/eureka/,http://47.105.218.58:8763/eureka/
+spring:
+  application:
+    name: user
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: CONFIG-SERVER
+      profile: dev
+server:
+  port: 8083
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: ALWAYS
+  server:
+    port: 8083 #actuator端口
+
+# 负载均衡策略，默认使用轮询，shirt 双击，搜索 IRule ，配置其实现类
+PRODUCT:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 16000
+    listFor:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 16000
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 16000
+        readTimeout: 26000
+        loggerLevel: basic

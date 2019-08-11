@@ -1,0 +1,1 @@
+FilterConstants 中获取具体的拦截属性

@@ -1,0 +1,44 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/ # 本地开发测试单机注册，当然 16 GB 或者 32 GB 内存条可集群
+
+spring:
+  application:
+    # 向注册中心添加的服务名称
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/xwzq/myconfig.git
+          username: 158262751
+          password: 158262751sb.
+          basedir: D://config/
+    bus:
+      trace:
+        enabled: true
+  rabbitmq:
+    # 配置中心需要消息队列的支持，如果本地没有安装 rabbit mq 的服务，暂时先用阿里云的
+    host: 47.105.218.58
+    port: 5672
+    username: guest
+    password: guest
+  # /{name}-{profiles}.yml
+  # /{label}/{name}-{profiles}.yml
+  # http://localhost:port/order-a.yml 访问， 根据配置的 git 仓库进行访问
+  # name 服务名
+  # profiles 环境
+  # label 分支(branch)  默认为 master 分支
+management:
+  endpoints:
+    web:
+      #      base-path: / #默认是/actuator 前缀，可以在这里修改
+      exposure:
+        include: "*"  #打开全部请求端点
+  #        include: refresh,health,info #打开部分
+  # 必须加上端口，不然 404
+  server:
+    port: 7777
+server:
+  port: 7777

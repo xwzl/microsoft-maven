@@ -1,0 +1,27 @@
+# 详细配置在配置中心 order-demo.yml
+eureka:
+  client:
+    service-url:
+      defaultZone: http://47.105.218.58:8761/eureka/,http://47.105.218.58:8762/eureka/,http://47.105.218.58:8763/eureka/
+
+spring:
+  application:
+    name: order
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: CONFIG-SERVER
+      profile: dev
+
+server:
+  port: 8081
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: ALWAYS
